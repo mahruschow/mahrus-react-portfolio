@@ -508,6 +508,126 @@ function About() {
   );
 }
 
+const EMPTY_FORM = { name: "", email: "", subject: "", message: "", website: "" };
+
+function ContactForm() {
+  const [form, setForm] = useState(EMPTY_FORM);
+  const [errors, setErrors] = useState({});
+  const [status, setStatus] = useState("idle"); // idle | sending | sent | error
+  const [notice, setNotice] = useState("");
+
+  const update = (field) => (e) => {
+    setForm((f) => ({ ...f, [field]: e.target.value }));
+    setErrors((errs) => ({ ...errs, [field]: undefined }));
+  };
+
+  async function submit(e) {
+    e.preventDefault();
+    if (status === "sending") return;
+    setStatus("sending");
+    setNotice("");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      const body = await res.json().catch(() => ({}));
+      if (res.ok) {
+        setForm(EMPTY_FORM);
+        setErrors({});
+        setStatus("sent");
+        setNotice("Thanks! Your message was sent. I’ll get back to you soon.");
+        return;
+      }
+      if (res.status === 400 && body.errors) setErrors(body.errors);
+      setStatus("error");
+      setNotice(
+        res.status === 400
+          ? "Please fix the highlighted fields."
+          : body.error || "Something went wrong. Please try again.",
+      );
+    } catch {
+      setStatus("error");
+      setNotice(`Couldn’t reach the server. You can also email ${EMAIL}.`);
+    }
+  }
+
+  const field = (name, label, props = {}) => (
+    <div className={errors[name] ? "form-field has-error" : "form-field"}>
+      <label htmlFor={`contact-${name}`}>{label}</label>
+      {props.as === "textarea" ? (
+        <textarea
+          id={`contact-${name}`}
+          name={name}
+          rows={5}
+          value={form[name]}
+          onChange={update(name)}
+          aria-invalid={Boolean(errors[name])}
+          aria-describedby={errors[name] ? `contact-${name}-error` : undefined}
+          maxLength={2000}
+          required={props.required}
+        />
+      ) : (
+        <input
+          id={`contact-${name}`}
+          name={name}
+          type={props.type || "text"}
+          value={form[name]}
+          onChange={update(name)}
+          aria-invalid={Boolean(errors[name])}
+          aria-describedby={errors[name] ? `contact-${name}-error` : undefined}
+          autoComplete={props.autoComplete}
+          maxLength={name === "subject" ? 150 : 254}
+          required={props.required}
+        />
+      )}
+      {errors[name] && (
+        <span id={`contact-${name}-error`} className="field-error">
+          {errors[name]}
+        </span>
+      )}
+    </div>
+  );
+
+  return (
+    <form className="contact-form" onSubmit={submit} noValidate>
+      <div className="form-row">
+        {field("name", "Name", { autoComplete: "name", required: true })}
+        {field("email", "Email", {
+          type: "email",
+          autoComplete: "email",
+          required: true,
+        })}
+      </div>
+      {field("subject", "Subject (optional)")}
+      {field("message", "Message", { as: "textarea", required: true })}
+      {/* Honeypot: hidden from people, tempting to bots. */}
+      <div className="form-trap" aria-hidden="true">
+        <label htmlFor="contact-website">Website</label>
+        <input
+          id="contact-website"
+          name="website"
+          tabIndex={-1}
+          autoComplete="off"
+          value={form.website}
+          onChange={update("website")}
+        />
+      </div>
+      <button className="button" type="submit" disabled={status === "sending"}>
+        {status === "sending" ? "Sending…" : "Send message"}
+        <Icon name="mail" size={15} />
+      </button>
+      <span
+        className={status === "error" ? "form-status is-error" : "form-status"}
+        role="status"
+      >
+        {notice}
+      </span>
+    </form>
+  );
+}
+
 function Contact() {
   const [copied, setCopied] = useState(false);
   const [copyError, setCopyError] = useState(false);
@@ -548,6 +668,7 @@ function Contact() {
       <span className="copy-status" role="status">
         {copyError ? EMAIL : copied ? "Email address copied to clipboard." : ""}
       </span>
+      <ContactForm />
     </section>
   );
 }

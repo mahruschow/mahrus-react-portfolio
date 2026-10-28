@@ -611,6 +611,77 @@
   margin-top: 13px;
   line-height: 1.8;
 }
+.contact-form {
+  display: grid;
+  gap: 18px;
+  max-width: 620px;
+  margin: 34px auto 0;
+  padding-top: 34px;
+  border-top: 1px solid #2a2a2a;
+  text-align: left;
+}
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+.form-field {
+  display: grid;
+  gap: 8px;
+}
+.form-field label {
+  font-size: 10px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: #999;
+}
+.form-field input,
+.form-field textarea {
+  width: 100%;
+  background: #1a1a1a;
+  border: 1px solid #373737;
+  border-radius: 0;
+  color: #e9e9e7;
+  font-size: 13px;
+  padding: 13px 14px;
+  resize: vertical;
+}
+.form-field input:hover,
+.form-field textarea:hover {
+  border-color: #555;
+}
+.form-field.has-error input,
+.form-field.has-error textarea {
+  border-color: #c98f8f;
+}
+.field-error {
+  font-size: 10px;
+  color: #d9a3a3;
+}
+.form-trap {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.contact-form .button {
+  justify-self: start;
+  gap: 16px;
+}
+.contact-form .button:disabled {
+  opacity: 0.6;
+  transform: none;
+}
+.form-status {
+  min-height: 20px;
+  font-size: 11px;
+  line-height: 1.7;
+  color: #adbfab;
+}
+.form-status.is-error {
+  color: #d9a3a3;
+}
 .site-footer {
   border-top: 1px solid #303030;
   display: flex;
@@ -1012,6 +1083,9 @@
   }
   .contact-actions {
     gap: 17px;
+  }
+  .form-row {
+    grid-template-columns: 1fr;
   }
   .site-footer {
     min-height: 115px;
