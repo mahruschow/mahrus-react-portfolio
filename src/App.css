@@ -1142,3 +1142,12 @@
     gap: 6px;
   }
 }
+
+.owner-inbox { width: min(100%, 36rem); margin: 2rem auto 0; }
+.inbox-panel { text-align: left; margin-top: 1rem; }
+.inbox-panel .form-field { display: grid; gap: .75rem; }
+.inbox-panel .button { justify-self: start; }
+.inbox-message { border-top: 1px solid #444; padding: 1.25rem 0; margin-top: 1rem; overflow-wrap: anywhere; }
+.inbox-message h3, .inbox-message p { margin: .4rem 0; }
+.message-text { white-space: pre-wrap; }
+.inbox-actions { display: flex; gap: 1rem; align-items: center; margin-top: 1rem; }

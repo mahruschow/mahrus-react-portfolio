@@ -37,3 +37,13 @@ test("remove deletes by id and reports misses", () =>
     assert.equal(await store.remove(id), true);
     assert.deepEqual(await store.list(), []);
   }));
+
+test("updates read status without replacing sender details", () =>
+  withStore(async (store) => {
+    const entry = await store.add({ name: "Sender", message: "Original content" });
+    assert.equal(entry.read, false);
+    const updated = await store.setRead(entry.id, true);
+    assert.deepEqual(updated, { ...entry, read: true });
+    assert.deepEqual(await store.list(), [updated]);
+    assert.equal(await store.setRead("missing", false), null);
+  }));

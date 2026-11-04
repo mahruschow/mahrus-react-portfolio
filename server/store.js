@@ -38,6 +38,7 @@ export function createStore(filePath) {
           id: randomUUID(),
           createdAt: new Date().toISOString(),
           ...entry,
+          read: false,
         };
         messages.push(message);
         await save(messages);
@@ -46,6 +47,16 @@ export function createStore(filePath) {
     },
     list() {
       return enqueue(async () => (await load()).reverse());
+    },
+    setRead(id, read) {
+      return enqueue(async () => {
+        const messages = await load();
+        const message = messages.find((item) => item.id === id);
+        if (!message) return null;
+        message.read = read;
+        await save(messages);
+        return message;
+      });
     },
     remove(id) {
       return enqueue(async () => {

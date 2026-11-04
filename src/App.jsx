@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
+import Inbox from "./Inbox.jsx";
 import "./App.css";
 
+const COPYRIGHT_YEAR = new Date().getFullYear();
 const EMAIL = "mahhchowdhury@gmail.com";
 const GITHUB = "https://github.com/mahruschow";
 const LINKEDIN = "https://www.linkedin.com/in/mahrus-chowdhury-866884301/";
@@ -533,7 +535,7 @@ function ContactForm() {
         body: JSON.stringify(form),
       });
       const body = await res.json().catch(() => ({}));
-      if (res.ok) {
+      if (res.ok && body.ok) {
         setForm(EMPTY_FORM);
         setErrors({});
         setStatus("sent");
@@ -669,6 +671,7 @@ function Contact() {
         {copyError ? EMAIL : copied ? "Email address copied to clipboard." : ""}
       </span>
       <ContactForm />
+      <Inbox />
     </section>
   );
 }
@@ -751,7 +754,7 @@ function App() {
       </main>
       <footer className="site-footer container">
         <a href="#main" className="footer-signature">
-          Mahrus Chowdhury<span>© {new Date().getFullYear()}</span>
+          Mahrus Chowdhury<span>© {COPYRIGHT_YEAR}</span>
         </a>
         <div>
           <a href={GITHUB} target="_blank" rel="noreferrer">

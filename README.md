@@ -33,7 +33,10 @@ The API lives in `server/` (Express 5, no database to set up):
 | `GET` | `/api/health` | Liveness check |
 | `POST` | `/api/contact` | Submit the contact form (`name`, `email`, `message`, optional `subject`) |
 | `GET` | `/api/messages` | List saved messages, newest first (admin) |
+| `PATCH` | `/api/messages/:id` | Mark a message read or unread with `{"read": true}` or `false` for the read value (admin) |
 | `DELETE` | `/api/messages/:id` | Delete a message (admin) |
+
+To try all four actions, send a message from the contact form. Open **Owner inbox** below it, enter the token from your local `.env`, then mark the message read or unread and delete it. Refresh retrieves the current inbox from the server. Closing the inbox clears the token from the page.
 
 Admin routes need `Authorization: Bearer <ADMIN_TOKEN>`, and return 503 until a token is configured.
 

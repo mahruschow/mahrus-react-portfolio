@@ -11,7 +11,7 @@
     "start": "npm run build && npm run server",
     "lint": "oxlint",
     "preview": "vite preview",
-    "test": "node --test server/"
+    "test": "node --test server/*.test.js"
   },
   "dependencies": {
     "cors": "^2.8.5",

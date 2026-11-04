@@ -37,7 +37,7 @@ export function createApp({
       },
     }),
   );
-  app.use(cors({ origin: allowedOrigins, methods: ["GET", "POST", "DELETE"] }));
+  app.use(cors({ origin: allowedOrigins, methods: ["GET", "POST", "PATCH", "DELETE"] }));
   app.use(express.json({ limit: "10kb" }));
 
   // --- Health -------------------------------------------------------------
@@ -87,6 +87,7 @@ export function createApp({
     if (a.length !== b.length || !timingSafeEqual(a, b)) {
       return res.status(401).json({ error: "Unauthorized." });
     }
+    res.set("Cache-Control", "no-store");
     next();
   }
 
@@ -96,6 +97,15 @@ export function createApp({
     } catch (err) {
       next(err);
     }
+  });
+
+  app.patch("/api/messages/:id", requireAdmin, async (req, res) => {
+    if (typeof req.body?.read !== "boolean") {
+      return res.status(400).json({ error: "Provide a boolean read status." });
+    }
+    const message = await store.setRead(req.params.id, req.body.read);
+    if (!message) return res.status(404).json({ error: "Not found." });
+    res.json({ message });
   });
 
   app.delete("/api/messages/:id", requireAdmin, async (req, res, next) => {
