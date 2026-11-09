@@ -58,9 +58,10 @@ Messages are stored in `server/data/messages.json` (git-ignored). Run the unit t
 
 - Contact form backed by the Express API
 - Responsive desktop and mobile layouts
-- Project filters for robotics and software
+- Project filters: Robotics & Hardware, Software & AI, Research
 - Accessible project detail dialogs with Escape dismissal and focus restoration
-- About, skills, and experience sections
+- About, skills, and an expandable experience timeline linked to projects
+- Resume download
 - Email, LinkedIn, and GitHub links
 - Copy-email button with feedback
 - Reduced-motion support and keyboard focus styles
@@ -68,10 +69,12 @@ Messages are stored in `server/data/messages.json` (git-ignored). Run the unit t
 ## Edit the content
 
 - `server/`: Express API (`index.js` routes, `validate.js` input rules, `store.js` JSON storage)
-- `src/App.jsx`: reusable page components, project content, contact links, and the contact form
+- `src/content.js`: all site content — projects, experience, skills, and contact links. Edit this first.
+- `src/App.jsx`: page components (header, work grid, project dialog, about, experience, contact form)
 - `src/App.css`: component styles and responsive layouts
 - `src/index.css`: global typography, colors, and background
-- `public/images/`: supplied portrait and project images
+- `public/images/`: portrait and project images
+- `public/Mahrus_Chowdhury_Resume.pdf`: the resume linked from the nav, hero, experience section, and footer
 - `index.html`: title, description, and metadata
 
 The SurgiSim project uses a labeled system illustration; the other project images came from the supplied portfolio deck. DM Sans loads from Google Fonts, with system font fallbacks.
