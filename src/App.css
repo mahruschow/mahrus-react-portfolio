@@ -116,9 +116,20 @@
   color: #fff;
   transform: translateY(-2px);
 }
-.hero-cta {
+.hero-actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
   margin-top: 29px;
+}
+.hero-cta {
   min-width: 177px;
+}
+.hero-cta-secondary {
+  background: transparent;
+  min-width: 0;
+  gap: 12px;
 }
 .scroll-cue {
   display: flex;
@@ -182,6 +193,17 @@
   width: 52px;
   line-height: 1.5;
   font-weight: 400;
+}
+.affiliation-inner .northrop {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  gap: 8px;
+}
+.northrop span {
+  font-size: 15px;
+  font-weight: 300;
+  letter-spacing: 2px;
 }
 .affiliation-inner .scope {
   font-size: 27px;
@@ -314,6 +336,19 @@
   padding: 22px 26px 0;
   background: #191e28;
 }
+.project-pterodactyl .project-visual > img,
+.project-pterodactyl.dialog-visual img {
+  object-fit: contain;
+  padding: 18px;
+  background: #15181c;
+}
+.project-thinkex .project-visual > img {
+  object-fit: cover;
+  object-position: top left;
+}
+.project-ftc .project-visual > img {
+  object-position: center;
+}
 .project-open:hover .project-visual > img {
   transform: scale(1.025);
   filter: saturate(1);
@@ -438,6 +473,11 @@
   font-size: 9px;
   color: #9aa8a0;
 }
+.sim-step {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 .sim-flow i {
   display: block;
   width: 19px;
@@ -504,11 +544,13 @@
   color: #a2a2a2;
   margin-top: auto;
 }
+.experience-section {
+  border-bottom: 1px solid #292929;
+}
 .experience {
   display: grid;
   grid-template-columns: 1fr 2fr;
   gap: 60px;
-  margin-top: 90px;
 }
 .experience-label h3 {
   font-size: 29px;
@@ -517,15 +559,28 @@
   margin-top: 17px;
   line-height: 1.3;
 }
-.experience-list article {
+.experience-note {
+  font-size: 12px;
+  line-height: 1.8;
+  color: #999;
+  margin-top: 18px;
+  max-width: 280px;
+}
+.experience-label .button {
+  margin-top: 26px;
+  gap: 14px;
+}
+.experience-item {
+  padding: 24px 0;
+  border-top: 1px solid #363636;
+}
+.experience-item:last-child {
+  border-bottom: 1px solid #363636;
+}
+.experience-row {
   display: flex;
   justify-content: space-between;
   gap: 24px;
-  padding: 26px 0;
-  border-top: 1px solid #363636;
-}
-.experience-list article:last-child {
-  border-bottom: 1px solid #363636;
 }
 .experience-list h4 {
   font-size: 14px;
@@ -536,20 +591,77 @@
   color: #aaa;
   margin-top: 8px;
 }
-.experience-list article div > span {
+.experience-row div:first-child > span {
   font-size: 10px;
   color: #959595;
   line-height: 1.8;
   display: block;
   margin-top: 8px;
-  max-width: 340px;
+  max-width: 420px;
 }
-.experience-list time {
+.experience-when {
+  text-align: right;
+  white-space: nowrap;
+}
+.experience-when time {
   font-size: 9px;
   color: #999;
-  white-space: nowrap;
   line-height: 1.8;
+  display: block;
   padding-top: 1px;
+}
+.experience-when small {
+  font-size: 9px;
+  color: #6f6f6f;
+  letter-spacing: 0.4px;
+}
+.experience-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 12px;
+  background: none;
+  border: 1px solid #333;
+  color: #a6a6a6;
+  font-size: 10px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 6px 11px;
+  min-height: 30px;
+}
+.experience-toggle:hover {
+  color: #fff;
+  border-color: #666;
+}
+.experience-detail {
+  margin-top: 14px;
+  padding-left: 2px;
+}
+.experience-detail ul {
+  list-style: disc;
+  padding-left: 18px;
+}
+.experience-detail li {
+  font-size: 12px;
+  line-height: 1.8;
+  color: #b6b6b6;
+  margin-bottom: 4px;
+}
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  background: none;
+  border: 0;
+  padding: 4px 0;
+  font-size: 11px;
+  color: #d6c9a9;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.text-link:hover {
+  color: #fff;
 }
 .contact-section {
   text-align: center;
@@ -796,8 +908,21 @@
   font-size: 16px;
   font-weight: 500;
 }
-.dialog-content > .button {
-  margin-top: 22px;
+.dialog-content ul {
+  list-style: disc;
+  padding-left: 20px;
+}
+.dialog-content li {
+  margin-bottom: 5px;
+}
+.dialog-actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 26px;
+}
+.dialog-actions .button {
+  gap: 14px;
 }
 .detail-photo {
   width: 100%;
@@ -839,8 +964,26 @@
   }
   .affiliation-inner {
     gap: 18px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-block: 24px;
   }
-  .affiliation-inner .scope {
+  .affiliation-inner .northrop,
+  .northrop span {
+    font-size: 13px;
+  }
+  .affiliation-inner .northrop {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  gap: 8px;
+}
+.northrop span {
+  font-size: 15px;
+  font-weight: 300;
+  letter-spacing: 2px;
+}
+.affiliation-inner .scope {
     font-size: 23px;
   }
   .scope span {
@@ -951,7 +1094,18 @@
   .affiliation-inner .aces {
     font-size: 25px;
   }
-  .affiliation-inner .scope {
+  .affiliation-inner .northrop {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  gap: 8px;
+}
+.northrop span {
+  font-size: 15px;
+  font-weight: 300;
+  letter-spacing: 2px;
+}
+.affiliation-inner .scope {
     font-size: 24px;
   }
   .affiliation-inner .lab {
@@ -1046,7 +1200,6 @@
   .experience {
     grid-template-columns: 1fr;
     gap: 28px;
-    margin-top: 57px;
   }
   .experience-label h3 {
     font-size: 27px;
@@ -1054,11 +1207,15 @@
   .experience-label h3 br {
     display: none;
   }
-  .experience-list article {
-    gap: 12px;
+  .experience-row {
+    flex-direction: column;
+    gap: 10px;
   }
-  .experience-list time {
-    font-size: 8px;
+  .experience-when {
+    text-align: left;
+    display: flex;
+    gap: 12px;
+    align-items: baseline;
   }
   .experience-list h4 {
     font-size: 12px;
@@ -1066,8 +1223,12 @@
   .experience-list p {
     font-size: 10px;
   }
-  .experience-list article div > span {
-    font-size: 10px;
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .filters {
+    flex-wrap: wrap;
   }
   .contact-section {
     padding-top: 69px;
@@ -1133,9 +1294,6 @@
   }
   .skill-card {
     min-height: 200px;
-  }
-  .experience-list article {
-    flex-direction: column;
   }
   .sim-flow {
     font-size: 8px;

@@ -1,31 +1,31 @@
 import { useEffect, useRef, useState } from "react";
 import Inbox from "./Inbox.jsx";
+import {
+  CATEGORIES,
+  EMAIL,
+  GITHUB,
+  LINKEDIN,
+  RESUME_FILE,
+  experience,
+  projects,
+  skills,
+} from "./content.js";
 import "./App.css";
 
 const COPYRIGHT_YEAR = new Date().getFullYear();
-const EMAIL = "mahhchowdhury@gmail.com";
-const GITHUB = "https://github.com/mahruschow";
-const LINKEDIN = "https://www.linkedin.com/in/mahrus-chowdhury-866884301/";
 const asset = (name) => `${import.meta.env.BASE_URL}images/${name}`;
+const resumeHref = `${import.meta.env.BASE_URL}${RESUME_FILE}`;
 
 function Icon({ name = "arrow", size = 18, ...props }) {
   const paths = {
-    arrow: (
-      <>
-        <path d="M7 17 17 7M7 7h10v10" />
-      </>
-    ),
+    arrow: <path d="M7 17 17 7M7 7h10v10" />,
     mail: (
       <>
         <rect x="3" y="5" width="18" height="14" rx="2" />
         <path d="m3 6 9 7 9-7" />
       </>
     ),
-    code: (
-      <>
-        <path d="m8 7-5 5 5 5m8-10 5 5-5 5m-3-13-2 16" />
-      </>
-    ),
+    code: <path d="m8 7-5 5 5 5m8-10 5 5-5 5m-3-13-2 16" />,
     chip: (
       <>
         <rect x="6" y="6" width="12" height="12" rx="2" />
@@ -39,11 +39,7 @@ function Icon({ name = "arrow", size = 18, ...props }) {
         <circle cx="12" cy="12" r="3" />
       </>
     ),
-    layers: (
-      <>
-        <path d="m12 3 10 5-10 5L2 8l10-5Zm-10 9 10 5 10-5M2 16l10 5 10-5" />
-      </>
-    ),
+    layers: <path d="m12 3 10 5-10 5L2 8l10-5Zm-10 9 10 5 10-5M2 16l10 5 10-5" />,
     close: <path d="m6 6 12 12M6 18 18 6" />,
     menu: <path d="M4 8h16M4 16h16" />,
     copy: (
@@ -53,6 +49,8 @@ function Icon({ name = "arrow", size = 18, ...props }) {
       </>
     ),
     check: <path d="m5 12 4 4L19 6" />,
+    download: <path d="M12 4v12m-5-5 5 5 5-5M5 20h14" />,
+    plus: <path d="M12 5v14M5 12h14" />,
   };
   return (
     <svg
@@ -72,105 +70,11 @@ function Icon({ name = "arrow", size = 18, ...props }) {
   );
 }
 
-const projects = [
-  {
-    id: "jarvissort",
-    number: "01",
-    name: "JarvisSort",
-    category: "Robotics",
-    year: "2025",
-    description: "Computer vision meets a machine that can act on it.",
-    image: "jarvissort.png",
-    alt: "Four photos of the JarvisSort robotic gantry, electronics, and project display",
-    tags: ["OpenAI CLIP", "Raspberry Pi", "MQTT"],
-    overview:
-      "An autonomous retrieval and categorization platform that identifies objects with computer vision and sorts them using embedded hardware. A web dashboard connects the pieces.",
-    role: "Software and hardware integration",
-    contribution:
-      "I co-led a team of five and connected the host vision pipeline to TMC2209 motor controllers over TCP/IP and MQTT. My work included the CLIP categorization pipeline, motion control, and recovery logic for the physical system.",
-    learning:
-      "A model is one part of a much larger system. Keeping the hardware, communication layer, and vision pipeline in sync mattered just as much as the classification itself.",
-    results: [
-      "96.4% classification accuracy",
-      "72% faster pick-and-place cycles",
-      "Presented to Maryland’s Lt. Governor and approximately 300 attendees",
-    ],
-  },
-  {
-    id: "air-hockey",
-    number: "02",
-    name: "Autonomous Air Hockey",
-    category: "Robotics",
-    year: "2024–2025",
-    description: "A robot with a quick reaction time and a competitive streak.",
-    image: "air-hockey.png",
-    alt: "The illuminated robotic air hockey table with its overhead motion gantry",
-    tags: ["OpenCV", "Rust", "Control theory"],
-    overview:
-      "A robotic air hockey opponent that detects the puck, predicts its trajectory, and moves a CoreXY gantry to defend and return shots.",
-    role: "Hardware integration, tracking, and motor control",
-    contribution:
-      "I paired an OpenCV tracking pipeline in Python with closed-loop stepper control in Rust. I worked on edge-rebound prediction, defensive positioning, motor tuning, and the interface between software and hardware.",
-    learning:
-      "Timing is a system-wide problem. The camera, prediction algorithm, and motors all need to agree on where the puck will be, not just where it was.",
-    results: [
-      "Approximately 25% improvement in paddle positioning accuracy",
-      "Featured in a UMD ECE article and documentary",
-    ],
-    gallery: "air-hockey-vision.png",
-  },
-  {
-    id: "adapt",
-    number: "03",
-    name: "Adapt",
-    category: "Software",
-    year: "Open source",
-    description: "Real-time community chat with privacy at its core.",
-    image: "adapt.png",
-    alt: "The Adapt chat interface showing channels, active users, and conversations",
-    tags: ["Rust", "WebSocket", "PWA"],
-    overview:
-      "An open-source community chat platform built around privacy, with Rust services and clients for the web and desktop.",
-    role: "Core implementation and security hardening",
-    contribution:
-      "My work spanned core implementation, security hardening, and promotion. The project uses Rust microservices, WebSocket communication, cross-platform clients, and a public REST API.",
-    learning:
-      "Privacy decisions shape the architecture from the beginning. Reliable real-time communication and a fast interface have to work within those decisions.",
-    results: [
-      "Open-source project under the AGPL",
-      "Web PWA and desktop clients",
-    ],
-  },
-  {
-    id: "surgisim",
-    number: "04",
-    name: "SurgiSim AI",
-    category: "Software",
-    year: "2026",
-    description: "Interactive surgical training with live AI coaching.",
-    tags: ["React", "FastAPI", "WebGL"],
-    overview:
-      "A surgical training simulator with procedure-specific WebGL scenes, instrument sets, and AI guidance during a practice session.",
-    role: "Frontend and backend development",
-    contribution:
-      "I built a React interface and FastAPI backend for session state, scoring, and live coaching. The simulator includes laparoscopic cholecystectomy and appendectomy scenes, with coaching streamed over server-sent events.",
-    learning:
-      "Feedback becomes more useful when it arrives while someone is practicing. The interface connects the simulation, live guidance, and performance metrics in one place.",
-    results: [
-      "Sub-200ms first-token latency for streamed coaching",
-      "Tracks tissue handling, idle time, and sequencing errors",
-    ],
-  },
-];
-
-function SimulationGraphic() {
+function SystemGraphic({ caption, flow }) {
   return (
-    <div
-      className="simulation-graphic"
-      aria-label="SurgiSim system overview illustration"
-    >
+    <div className="simulation-graphic" aria-label={`${caption} illustration`}>
       <div className="sim-caption">
-        <span className="status-dot" /> SURGISIM / SYSTEM OVERVIEW
+        <span className="status-dot" /> {caption}
       </div>
       <div className="sim-orbit">
         <div className="orbit orbit-one" />
@@ -179,18 +83,27 @@ function SimulationGraphic() {
         <Icon name="layers" size={45} />
       </div>
       <div className="sim-flow">
-        <span>Simulation</span>
-        <i />
-        <span>AI coaching</span>
-        <i />
-        <span>Feedback</span>
+        {flow.map((step, i) => (
+          <span key={step} className="sim-step">
+            {i > 0 && <i />}
+            <span>{step}</span>
+          </span>
+        ))}
       </div>
     </div>
   );
 }
 
+function ProjectVisual({ project }) {
+  if (project.image) {
+    return <img src={asset(project.image)} alt={project.alt} loading="lazy" />;
+  }
+  return <SystemGraphic {...project.graphic} />;
+}
+
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const close = () => setMenuOpen(false);
   return (
     <header className="site-header container">
       <a className="email-link" href={`mailto:${EMAIL}`}>
@@ -213,15 +126,23 @@ function Header() {
         className={menuOpen ? "main-nav is-open" : "main-nav"}
         aria-label="Main navigation"
         onKeyDown={(e) => {
-          if (e.key === "Escape") setMenuOpen(false);
+          if (e.key === "Escape") close();
         }}
       >
-        <a href="#work" onClick={() => setMenuOpen(false)}>
+        <a href="#work" onClick={close}>
           Work
         </a>
         <span>/</span>
-        <a href="#about" onClick={() => setMenuOpen(false)}>
+        <a href="#about" onClick={close}>
           About
+        </a>
+        <span>/</span>
+        <a href="#experience" onClick={close}>
+          Experience
+        </a>
+        <span>/</span>
+        <a href={resumeHref} target="_blank" rel="noreferrer">
+          Resume <Icon name="download" size={12} />
         </a>
         <span>/</span>
         <a href={LINKEDIN} target="_blank" rel="noreferrer">
@@ -236,7 +157,7 @@ function Header() {
   );
 }
 
-function ProjectCard({ project, onSelect }) {
+function ProjectCard({ project, index, onSelect }) {
   return (
     <article className={`project-card project-${project.id}`}>
       <button
@@ -245,11 +166,7 @@ function ProjectCard({ project, onSelect }) {
         aria-label={`View ${project.name} project details`}
       >
         <div className="project-visual">
-          {project.image ? (
-            <img src={asset(project.image)} alt={project.alt} loading="lazy" />
-          ) : (
-            <SimulationGraphic />
-          )}
+          <ProjectVisual project={project} />
           <span className="project-view">
             <Icon size={22} />
           </span>
@@ -258,7 +175,7 @@ function ProjectCard({ project, onSelect }) {
           <span>
             {project.category} / {project.year}
           </span>
-          <span>{project.number}</span>
+          <span>{String(index + 1).padStart(2, "0")}</span>
         </div>
         <h3>{project.name}</h3>
         <p>{project.description}</p>
@@ -280,6 +197,7 @@ function ProjectDialog({ project, onClose }) {
     const previousOverflow = document.body.style.overflow;
     const current = dialog.current;
     current.showModal();
+    current.scrollTop = 0;
     document.body.style.overflow = "hidden";
     return () => {
       current.close();
@@ -315,11 +233,7 @@ function ProjectDialog({ project, onClose }) {
           <h2 id="project-title">{project.name}</h2>
           <p className="dialog-intro">{project.overview}</p>
           <div className={`dialog-visual project-${project.id}`}>
-            {project.image ? (
-              <img src={asset(project.image)} alt={project.alt} />
-            ) : (
-              <SimulationGraphic />
-            )}
+            <ProjectVisual project={project} />
           </div>
           <div className="detail-grid">
             <div>
@@ -331,11 +245,19 @@ function ProjectDialog({ project, onClose }) {
               <p>{project.tags.join(" · ")}</p>
             </div>
           </div>
-          <h3>What I worked on</h3>
-          <p>{project.contribution}</p>
+          {project.details && (
+            <>
+              <h3>What I built</h3>
+              <ul>
+                {project.details.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </>
+          )}
           <h3>What I learned</h3>
           <p>{project.learning}</p>
-          <h3>Project highlights</h3>
+          <h3>Outcomes</h3>
           <ul>
             {project.results.map((result) => (
               <li key={result}>{result}</li>
@@ -345,13 +267,26 @@ function ProjectDialog({ project, onClose }) {
             <img
               className="detail-photo"
               src={asset(project.gallery)}
-              alt="Computer vision view of the air hockey puck tracking system"
+              alt={project.galleryAlt || ""}
               loading="lazy"
             />
           )}
-          <button className="button" onClick={onClose}>
-            Back to projects <Icon name="close" size={15} />
-          </button>
+          <div className="dialog-actions">
+            {project.links?.map((link) => (
+              <a
+                key={link.href}
+                className="button"
+                href={link.href}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {link.label} <Icon size={15} />
+              </a>
+            ))}
+            <button className="button" onClick={onClose}>
+              Back to projects <Icon name="close" size={15} />
+            </button>
+          </div>
         </div>
       )}
     </dialog>
@@ -363,6 +298,10 @@ function Work({ onSelect }) {
   const shown = projects.filter(
     (p) => filter === "All" || p.category === filter,
   );
+  const count = (name) =>
+    name === "All"
+      ? projects.length
+      : projects.filter((p) => p.category === name).length;
   return (
     <section id="work" className="work-section container section">
       <div className="section-heading">
@@ -371,20 +310,20 @@ function Work({ onSelect }) {
           <h2>Ideas, made real.</h2>
         </div>
         <p>
-          A few things I’ve built across
-          <br className="desktop-break" /> software, AI, and the physical world.
+          Things I’ve built across hardware,
+          <br className="desktop-break" /> software, AI, and research.
         </p>
       </div>
       <div className="filter-row">
         <div className="filters" aria-label="Filter projects">
-          {["All", "Robotics", "Software"].map((name) => (
+          {CATEGORIES.map((name) => (
             <button
               key={name}
               aria-pressed={filter === name}
               onClick={() => setFilter(name)}
             >
               {name}
-              {name === "All" && <span>04</span>}
+              <span>{String(count(name)).padStart(2, "0")}</span>
             </button>
           ))}
         </div>
@@ -393,40 +332,18 @@ function Work({ onSelect }) {
         </span>
       </div>
       <div className="project-grid">
-        {shown.map((project) => (
-          <ProjectCard key={project.id} project={project} onSelect={onSelect} />
+        {shown.map((project, i) => (
+          <ProjectCard
+            key={project.id}
+            project={project}
+            index={i}
+            onSelect={onSelect}
+          />
         ))}
       </div>
     </section>
   );
 }
-
-const skills = [
-  {
-    icon: "eye",
-    title: "AI & computer vision",
-    body: "Turning images and data into signals that software and machines can use.",
-    tools: "PyTorch · OpenCV · CLIP",
-  },
-  {
-    icon: "chip",
-    title: "Robotics & systems",
-    body: "Connecting perception, embedded hardware, and real-time control.",
-    tools: "Rust · Raspberry Pi · MQTT",
-  },
-  {
-    icon: "code",
-    title: "Full-stack development",
-    body: "Building interfaces and the services that keep them running.",
-    tools: "React · Python · FastAPI",
-  },
-  {
-    icon: "layers",
-    title: "Research & data",
-    body: "Testing assumptions, comparing models, and making results reproducible.",
-    tools: "PySpark · SQL · MMSegmentation",
-  },
-];
 
 function About() {
   return (
@@ -444,12 +361,22 @@ function About() {
           <div className="about-copy">
             <p>
               I’m Mahrus, a computer engineering student at the University of
-              Maryland and a member of the ACES Honors College.
+              Maryland and a member of the ACES Honors College in
+              cybersecurity. I’ll be joining Northrop Grumman as an embedded
+              software engineering intern in summer 2027.
             </p>
             <p>
-              I like working where software meets the physical world: making a
-              robot see, helping a system react, or building an interface that
-              makes something complicated feel simple.
+              I like working where software meets the physical world. That has
+              meant laying out a sensor board for a balloon payload, teaching a
+              gantry to sort what a vision model sees, building a governed data
+              platform people can query in plain English, and testing whether
+              a language model can read a biology report without making
+              things up.
+            </p>
+            <p>
+              The thread through all of it: I’ve built every layer of the
+              stack, from the board that produces the data to the model that
+              acts on it, and I care most about the seams in between.
             </p>
           </div>
         </div>
@@ -463,47 +390,86 @@ function About() {
             </article>
           ))}
         </div>
-        <div className="experience">
-          <div className="experience-label">
-            <p className="eyebrow">Along the way</p>
-            <h3>
-              Learning by{" "}
-              <br />
-              building.
-            </h3>
-          </div>
-          <div className="experience-list">
-            <article>
-              <div>
-                <h4>Scope Infotech</h4>
-                <p>AI Software Engineering Intern</p>
-                <span>
-                  Data pipelines, semantic search, and security tooling.
-                </span>
-              </div>
-              <time>Jul 2026 — Present</time>
-            </article>
-            <article>
-              <div>
-                <h4>UMD · I3P Lab</h4>
-                <p>Undergraduate Researcher</p>
-                <span>
-                  Medical image segmentation and reproducible model evaluation.
-                </span>
-              </div>
-              <time>Jun 2026 — Present</time>
-            </article>
-            <article>
-              <div>
-                <h4>UMD · Clark School of Engineering</h4>
-                <p>Engineering Intern</p>
-                <span>
-                  Autonomous robotics, vision, and embedded motor control.
-                </span>
-              </div>
-              <time>Jul — Aug 2025</time>
-            </article>
-          </div>
+      </div>
+    </section>
+  );
+}
+
+function ExperienceItem({ item, onSelect }) {
+  const [open, setOpen] = useState(false);
+  const expandable = Boolean(item.bullets?.length);
+  const project = item.project
+    ? projects.find((p) => p.id === item.project)
+    : null;
+  return (
+    <article className={open ? "experience-item is-open" : "experience-item"}>
+      <div className="experience-row">
+        <div>
+          <h4>{item.org}</h4>
+          <p>{item.role}</p>
+          <span>{item.summary}</span>
+        </div>
+        <div className="experience-when">
+          <time>{item.when}</time>
+          <small>{item.where}</small>
+        </div>
+      </div>
+      {expandable && (
+        <>
+          <button
+            className="experience-toggle"
+            aria-expanded={open}
+            onClick={() => setOpen(!open)}
+          >
+            <Icon name={open ? "close" : "plus"} size={13} />
+            {open ? "Less" : "More"}
+          </button>
+          {open && (
+            <div className="experience-detail">
+              <ul>
+                {item.bullets.map((b) => (
+                  <li key={b}>{b}</li>
+                ))}
+              </ul>
+              {project && (
+                <button
+                  className="text-link"
+                  onClick={() => onSelect(project)}
+                >
+                  Open the {project.name} project <Icon size={12} />
+                </button>
+              )}
+            </div>
+          )}
+        </>
+      )}
+    </article>
+  );
+}
+
+function Experience({ onSelect }) {
+  return (
+    <section id="experience" className="experience-section container section">
+      <div className="experience">
+        <div className="experience-label">
+          <p className="eyebrow">03 / Experience</p>
+          <h3>
+            Learning by{" "}
+            <br />
+            building.
+          </h3>
+          <p className="experience-note">
+            Industry, research, and team roles, newest first. Expand any entry
+            for detail, or open the related project.
+          </p>
+          <a className="button" href={resumeHref} target="_blank" rel="noreferrer">
+            Download resume <Icon name="download" size={15} />
+          </a>
+        </div>
+        <div className="experience-list">
+          {experience.map((item) => (
+            <ExperienceItem key={item.org + item.role} item={item} onSelect={onSelect} />
+          ))}
         </div>
       </div>
     </section>
@@ -651,7 +617,7 @@ function Contact() {
       <div className="contact-symbol">
         <Icon name="mail" size={26} />
       </div>
-      <p className="eyebrow">03 / Let’s connect</p>
+      <p className="eyebrow">04 / Let’s connect</p>
       <h2>
         Good things start
         <br />
@@ -702,18 +668,30 @@ function App() {
             <br />
             systems,{" "}
             <span>
-              from pixels
+              from the circuit board
               <br />
-              to the physical world.
+              to the model on top.
             </span>
           </h1>
           <p className="hero-description">
-            Computer engineering at UMD.
-            <br className="mobile-break" /> Curious about what comes next.
+            Computer engineering at UMD. Embedded hardware, AI systems, and
+            research.
+            <br className="mobile-break" /> Incoming at Northrop Grumman, summer
+            2027.
           </p>
-          <a className="button hero-cta" href="#work">
-            Explore my work <Icon size={16} />
-          </a>
+          <div className="hero-actions">
+            <a className="button hero-cta" href="#work">
+              Explore my work <Icon size={16} />
+            </a>
+            <a
+              className="button hero-cta hero-cta-secondary"
+              href={resumeHref}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Resume <Icon name="download" size={15} />
+            </a>
+          </div>
           <a
             href="#work"
             className="scroll-cue"
@@ -735,6 +713,9 @@ function App() {
             <div className="aces">
               ACES <span>HONORS COLLEGE</span>
             </div>
+            <div className="northrop">
+              NORTHROP <span>GRUMMAN</span>
+            </div>
             <div className="scope">
               Scope <span>INFOTECH</span>
             </div>
@@ -750,6 +731,7 @@ function App() {
         </div>
         <Work onSelect={setSelectedProject} />
         <About />
+        <Experience onSelect={setSelectedProject} />
         <Contact />
       </main>
       <footer className="site-footer container">
@@ -762,6 +744,9 @@ function App() {
           </a>
           <a href={LINKEDIN} target="_blank" rel="noreferrer">
             LinkedIn <Icon size={12} />
+          </a>
+          <a href={resumeHref} target="_blank" rel="noreferrer">
+            Resume <Icon name="download" size={12} />
           </a>
           <a href={`mailto:${EMAIL}`}>
             Email <Icon size={12} />
