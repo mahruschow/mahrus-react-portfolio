@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import Inbox from "./Inbox.jsx";
 import {
   CATEGORIES,
   EMAIL,
@@ -489,36 +488,24 @@ function ContactForm() {
     setErrors((errs) => ({ ...errs, [field]: undefined }));
   };
 
-  async function submit(e) {
+  function submit(e) {
     e.preventDefault();
-    if (status === "sending") return;
-    setStatus("sending");
-    setNotice("");
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-      const body = await res.json().catch(() => ({}));
-      if (res.ok && body.ok) {
-        setForm(EMPTY_FORM);
-        setErrors({});
-        setStatus("sent");
-        setNotice("Thanks! Your message was sent. I’ll get back to you soon.");
-        return;
-      }
-      if (res.status === 400 && body.errors) setErrors(body.errors);
+    const errs = {};
+    if (!form.name.trim()) errs.name = "Please enter your name.";
+    if (!/^\S+@\S+\.\S+$/.test(form.email.trim())) errs.email = "Please enter a valid email.";
+    if (!form.message.trim()) errs.message = "Please write a message.";
+    if (form.website) return; // honeypot
+    setErrors(errs);
+    if (Object.keys(errs).length) {
       setStatus("error");
-      setNotice(
-        res.status === 400
-          ? "Please fix the highlighted fields."
-          : body.error || "Something went wrong. Please try again.",
-      );
-    } catch {
-      setStatus("error");
-      setNotice(`Couldn’t reach the server. You can also email ${EMAIL}.`);
+      setNotice("Please fix the highlighted fields.");
+      return;
     }
+    const subject = form.subject.trim() || `Portfolio message from ${form.name.trim()}`;
+    const body = `${form.message.trim()}\n\n— ${form.name.trim()} (${form.email.trim()})`;
+    window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    setStatus("sent");
+    setNotice(`Opening your email app. If nothing opens, write to ${EMAIL}.`);
   }
 
   const field = (name, label, props = {}) => (
@@ -582,8 +569,8 @@ function ContactForm() {
           onChange={update("website")}
         />
       </div>
-      <button className="button" type="submit" disabled={status === "sending"}>
-        {status === "sending" ? "Sending…" : "Send message"}
+      <button className="button" type="submit">
+        Send message
         <Icon name="mail" size={15} />
       </button>
       <span
@@ -637,7 +624,6 @@ function Contact() {
         {copyError ? EMAIL : copied ? "Email address copied to clipboard." : ""}
       </span>
       <ContactForm />
-      <Inbox />
     </section>
   );
 }
