@@ -205,6 +205,18 @@
   font-weight: 300;
   letter-spacing: 2px;
 }
+.affiliation-inner .umsom {
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  gap: 10px;
+}
+.umsom span {
+  font-size: 8px;
+  letter-spacing: 0.7px;
+  font-weight: 400;
+  line-height: 1.6;
+}
 .affiliation-inner .scope {
   font-size: 27px;
   letter-spacing: -1px;
@@ -345,6 +357,21 @@
 .project-thinkex .project-visual > img {
   object-fit: cover;
   object-position: top left;
+}
+.project-lakehouse .project-visual > img,
+.project-lakehouse.dialog-visual img,
+.project-i3p .project-visual > img,
+.project-i3p.dialog-visual img {
+  object-fit: contain;
+  background: #1b1b1b;
+}
+.project-i3p .project-visual > img {
+  padding: 14px;
+  background: #fff;
+}
+.project-umsom .project-visual > img {
+  object-fit: cover;
+  object-position: center;
 }
 .project-ftc .project-visual > img {
   object-position: center;
@@ -1110,6 +1137,9 @@
   }
   .affiliation-inner .lab {
     font-size: 29px;
+  }
+  .affiliation-inner .umsom {
+    font-size: 21px;
   }
   .section {
     padding-block: 68px;

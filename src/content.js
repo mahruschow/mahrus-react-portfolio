@@ -130,7 +130,8 @@ export const projects = [
     year: "2026",
     description: "A governed data platform that non-technical staff can query in plain English.",
     tags: ["PySpark", "Delta Lake", "FAISS", "sentence-transformers"],
-    graphic: { caption: "SCOPE INFOTECH / DATA PLATFORM", flow: ["Ingest", "Govern", "Ask"] },
+    image: "lakehouse.svg",
+    alt: "Architecture diagram: three ingestion paths into bronze, silver, and gold Delta Lake zones, served by a SQL warehouse, semantic search with RAG, and a job cluster",
     overview:
       "At Scope Infotech I built a Delta Lake medallion lakehouse as a capability demonstration for federal contract pursuits, then put a retrieval layer on top so people who do not write SQL could still get answers from governed data.",
     role: "AI software engineering intern; designed and built the platform end to end",
@@ -220,7 +221,8 @@ export const projects = [
     year: "Jun 2026 – Present",
     description: "Reproducing published segmentation results and finding out why the numbers did not match.",
     tags: ["PyTorch", "MMSegmentation", "Multi-GPU", "Dice / IoU"],
-    graphic: { caption: "I3P LAB / MODEL EVALUATION", flow: ["Reproduce", "Measure", "Resolve"] },
+    image: "segmentation.png",
+    alt: "Segmentation masks from ten architectures compared against ground truth on brain MRI, breast ultrasound, and skin lesion images",
     overview:
       "In Dr. Yu Gan's Intelligent Imaging and Image Processing Lab at UMD, I work on making medical image segmentation results reproducible across architectures and codebases.",
     role: "Undergraduate researcher",
@@ -241,7 +243,8 @@ export const projects = [
     year: "Nov 2026 – Present",
     description: "Benchmarking open-weight language models on osteosarcoma reports, on a laptop.",
     tags: ["Gemma 4", "MedGemma", "LLM-as-judge", "Benchmarking"],
-    graphic: { caption: "UMSOM / LLM EVALUATION", flow: ["Report", "Interpret", "Judge"] },
+    image: "umsom-llm.jpg",
+    alt: "Illustration of osteosarcoma spatial transcriptomics data flowing into a STAPLE report, then interpreted by Gemma 4 and MedGemma",
     overview:
       "At the University of Maryland School of Medicine, in Dr. Elana Fertig's lab, I am evaluating how reliably locally deployed, open-weight LLMs interpret spatial transcriptomics data without inventing claims the data does not support.",
     role: "Researcher",

@@ -727,6 +727,14 @@ function App() {
                 PROCESSING LAB
               </span>
             </div>
+            <div className="umsom">
+              UMSOM{" "}
+              <span>
+                UNIVERSITY OF MARYLAND
+                <br />
+                SCHOOL OF MEDICINE
+              </span>
+            </div>
           </div>
         </div>
         <Work onSelect={setSelectedProject} />
