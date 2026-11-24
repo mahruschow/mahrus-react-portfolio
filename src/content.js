@@ -17,6 +17,26 @@ export const CATEGORIES = ["All", "Robotics & Hardware", "Software & AI", "Resea
  */
 export const projects = [
   {
+    id: "kairon",
+    name: "Kairon Dynamics",
+    category: "Robotics & Hardware",
+    year: "2026 – Present",
+    description: "A startup retrofitting the ATVs and UTVs farms already own for autonomous field work.",
+    tags: ["Autonomy", "Startup", "Robotics", "Go-to-market"],
+    graphic: { caption: "KAIRON / GOFAR", flow: ["Existing ATV / UTV", "Retrofit kit", "Autonomous field work"] },
+    overview:
+      "Kairon Dynamics is building GOFAR, a kit that retrofits the farm ATVs and UTVs already in the barn for autonomous operation, so farms can automate repetitive field work without buying new equipment. I co-founded the company and serve as CTO.",
+    role: "Co-founder & CTO",
+    details: [
+      "Co-founded the company and lead its technical direction as CTO.",
+      "Pitched GOFAR at UMD's Dingman Center Idea Track competition, presenting the high-level solution.",
+    ],
+    learning:
+      "Every farm has different terrain, vehicles, and workflows. Deciding what to customize per site and what to build once into the product is as much of the engineering as the autonomy itself.",
+    results: ["Best Go-To-Market Strategy, Dingman Center Idea Track", "$3,000 award"],
+    links: [{ label: "Website", href: "https://kairondynamics.com" }],
+  },
+  {
     id: "jarvissort",
     name: "Jarvis Sort",
     category: "Robotics & Hardware",
@@ -266,6 +286,18 @@ export const experience = [
     when: "Summer 2027",
     where: "Baltimore, MD",
     summary: "Embedded software for defense systems. Starting June 2027.",
+  },
+  {
+    org: "Kairon Dynamics",
+    role: "Co-founder & CTO",
+    when: "2026 — Present",
+    where: "College Park, MD",
+    summary: "Autonomy retrofit kit for farm ATVs and UTVs.",
+    bullets: [
+      "Co-founded GOFAR, a kit that retrofits existing farm vehicles for autonomous operation.",
+      "Won Best Go-To-Market Strategy and $3,000 at UMD's Dingman Center Idea Track.",
+    ],
+    project: "kairon",
   },
   {
     org: "Scope Infotech",
