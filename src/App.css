@@ -1339,3 +1339,27 @@
 .inbox-message h3, .inbox-message p { margin: .4rem 0; }
 .message-text { white-space: pre-wrap; }
 .inbox-actions { display: flex; gap: 1rem; align-items: center; margin-top: 1rem; }
+
+/* Direct code links on project cards */
+.project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+.project-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 11px;
+  border: 1px solid var(--border);
+  font-size: 11px;
+  color: var(--accent);
+  text-decoration: none;
+  transition: border-color 0.2s, color 0.2s;
+}
+.project-links a:hover,
+.project-links a:focus-visible {
+  border-color: var(--accent);
+  color: #fff;
+}

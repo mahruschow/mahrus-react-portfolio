@@ -128,12 +128,12 @@ function Header() {
           if (e.key === "Escape") close();
         }}
       >
-        <a href="#work" onClick={close}>
-          Work
-        </a>
-        <span>/</span>
         <a href="#about" onClick={close}>
           About
+        </a>
+        <span>/</span>
+        <a href="#work" onClick={close}>
+          Work
         </a>
         <span>/</span>
         <a href="#experience" onClick={close}>
@@ -184,6 +184,15 @@ function ProjectCard({ project, index, onSelect }) {
           ))}
         </div>
       </button>
+      {project.links?.length > 0 && (
+        <div className="project-links">
+          {project.links.map((link) => (
+            <a key={link.href} href={link.href} target="_blank" rel="noreferrer">
+              <Icon name="code" size={14} /> {link.label} <Icon size={12} />
+            </a>
+          ))}
+        </div>
+      )}
     </article>
   );
 }
@@ -305,7 +314,7 @@ function Work({ onSelect }) {
     <section id="work" className="work-section container section">
       <div className="section-heading">
         <div>
-          <p className="eyebrow">01 / Selected work</p>
+          <p className="eyebrow">02 / Selected work</p>
           <h2>Ideas, made real.</h2>
         </div>
         <p>
@@ -350,11 +359,11 @@ function About() {
       <div className="container">
         <div className="about-intro">
           <div>
-            <p className="eyebrow">02 / A bit about me</p>
+            <p className="eyebrow">01 / About me</p>
             <h2>
-              Curious by nature.
+              I build software
               <br />
-              <span>Engineer in progress.</span>
+              <span>for physical systems.</span>
             </h2>
           </div>
           <div className="about-copy">
@@ -723,8 +732,8 @@ function App() {
             </div>
           </div>
         </div>
-        <Work onSelect={setSelectedProject} />
         <About />
+        <Work onSelect={setSelectedProject} />
         <Experience onSelect={setSelectedProject} />
         <Contact />
       </main>
