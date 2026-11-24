@@ -23,7 +23,8 @@ export const projects = [
     year: "2026 – Present",
     description: "A startup retrofitting the ATVs and UTVs farms already own for autonomous field work.",
     tags: ["Autonomy", "Startup", "Robotics", "Go-to-market"],
-    graphic: { caption: "KAIRON / GOFAR", flow: ["Existing ATV / UTV", "Retrofit kit", "Autonomous field work"] },
+    image: "kairon.png",
+    alt: "Kairon Dynamics wordmark",
     overview:
       "Kairon Dynamics is building GOFAR, a kit that retrofits the farm ATVs and UTVs already in the barn for autonomous operation, so farms can automate repetitive field work without buying new equipment. I co-founded the company and serve as CTO.",
     role: "Co-founder & CTO",
