@@ -74,7 +74,7 @@ Messages are stored in `server/data/messages.json` (git-ignored). Run the unit t
 - `src/App.css`: component styles and responsive layouts
 - `src/index.css`: global typography, colors, and background
 - `public/images/`: portrait and project images
-- `public/Mahrus_Chowdhury_Resume.pdf`: the resume linked from the nav, hero, experience section, and footer
+- `public/Mahrus_Chowdhury_ATF_Fellowship.pdf`: the resume linked from the nav, hero, experience section, and footer
 - `index.html`: title, description, and metadata
 
 The SurgiSim project uses a labeled system illustration; the other project images came from the supplied portfolio deck. DM Sans loads from Google Fonts, with system font fallbacks.

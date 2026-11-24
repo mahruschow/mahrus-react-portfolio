@@ -2,8 +2,8 @@
 
 export const EMAIL = "mahhchowdhury@gmail.com";
 export const GITHUB = "https://github.com/mahruschow";
-export const LINKEDIN = "https://www.linkedin.com/in/mahrus-chowdhury-866884301/";
-export const RESUME_FILE = "Mahrus_Chowdhury_Resume.pdf";
+export const LINKEDIN = "https://www.linkedin.com/in/mahruschowdhury/";
+export const RESUME_FILE = "Mahrus_Chowdhury_ATF_Fellowship.pdf";
 
 export const CATEGORIES = ["All", "Robotics & Hardware", "Software & AI", "Research"];
 
